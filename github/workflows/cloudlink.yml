@@ -1,0 +1,24 @@
+name: Update Scratch Cloud Variable
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # 5分ごとに実行（変更したい場合は適宜修正）
+  workflow_dispatch:  # 手動実行も可能にする
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v3
+
+      - name: Python をセットアップ
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.x'
+
+      - name: 必要なライブラリをインストール
+        run: pip install cloudlink
+
+      - name: CloudLink スクリプトを実行
+        run: python change_shindo.py
